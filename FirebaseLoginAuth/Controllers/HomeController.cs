@@ -26,13 +26,10 @@ namespace FirebaseLoginAuth.Controllers
         {
             try
             {
-                //create the user
                 await auth.CreateUserWithEmailAndPasswordAsync(loginModel.Email, loginModel.Password);
-                //log in the new user
                 var fbAuthLink = await auth
                                 .SignInWithEmailAndPasswordAsync(loginModel.Email, loginModel.Password);
                 string token = fbAuthLink.FirebaseToken;
-                //saving the token in a session variable
                 if (token != null)
                 {
                     HttpContext.Session.SetString("_UserToken", token);
@@ -60,11 +57,9 @@ namespace FirebaseLoginAuth.Controllers
         {
             try
             {
-                //log in an existing user
                 var fbAuthLink = await auth
                                 .SignInWithEmailAndPasswordAsync(loginModel.Email, loginModel.Password);
                 string token = fbAuthLink.FirebaseToken;
-                //save the token to a session variable
                 if (token != null)
                 {
                     HttpContext.Session.SetString("_UserToken", token);
